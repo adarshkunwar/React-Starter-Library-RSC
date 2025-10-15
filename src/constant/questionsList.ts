@@ -1,4 +1,4 @@
-import { type Question } from "../../types/questionList.js";
+import { type Question } from "../types/questionList.js";
 
 const questionsList: Question[] = [
   {

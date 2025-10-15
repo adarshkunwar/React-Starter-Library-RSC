@@ -13,3 +13,5 @@ export type ListQuestion = {
 };
 
 export type Question = InputQuestion | ListQuestion;
+
+export type Answers = Record<string, string>;
