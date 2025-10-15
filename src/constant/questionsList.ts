@@ -1,4 +1,5 @@
 import { type Question } from "../types/questionList.js";
+import { createYNQuestion } from "../utils/helper/createQuestion.js";
 
 const questionsList: Question[] = [
   {
@@ -26,4 +27,10 @@ const questionsList: Question[] = [
   },
 ];
 
-export { questionsList };
+const confirmQuestion = createYNQuestion({
+  question: "Are you sure you want to continue?",
+  choice: ["Yes", "No"],
+  name: "confirm",
+});
+
+export { questionsList, confirmQuestion };
