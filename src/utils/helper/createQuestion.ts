@@ -1,6 +1,6 @@
 import type { Question } from "../../types/questionList.js";
 
-const createYNQuestion = ({
+const createYNQuestion = <T>({
   question,
   choice,
   name,
@@ -8,10 +8,10 @@ const createYNQuestion = ({
   name: string;
   question: string;
   choice: string[];
-}): Question => {
+}): Question<T> => {
   return {
     type: "list",
-    name: name,
+    name: name as keyof T,
     message: question,
     choices: choice,
   };

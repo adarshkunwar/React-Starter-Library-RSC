@@ -1,7 +1,9 @@
 import { createInterface } from "node:readline/promises";
 import type { Question, Answers } from "../../types/questionList.js";
 
-const readSingleStringInput = async (question: Question): Promise<string> => {
+const readSingleStringInput = async <T>(
+  question: Question<T>
+): Promise<string> => {
   let answer = "";
   const readline = createInterface({
     input: process.stdin,
@@ -20,7 +22,9 @@ const readSingleStringInput = async (question: Question): Promise<string> => {
   return answer;
 };
 
-const readSingleListInput = async (question: Question): Promise<string> => {
+const readSingleListInput = async <T>(
+  question: Question<T>
+): Promise<string> => {
   let answer = "";
   const readline = createInterface({
     input: process.stdin,
@@ -55,10 +59,10 @@ const readSingleListInput = async (question: Question): Promise<string> => {
   return answer;
 };
 
-const readUserInputList = async (
-  questionsList: Question[]
-): Promise<Answers> => {
-  const answers: Answers = {};
+const readUserInputList = async <T extends { [K in keyof T]: string }>(
+  questionsList: Question<T>[]
+): Promise<T> => {
+  const answers: Partial<T> = {};
   const readline = createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -68,7 +72,7 @@ const readUserInputList = async (
     for (const question of questionsList) {
       if (question.type === "input") {
         const answer = await readline.question(`${question.message}: `);
-        answers[question.name] = answer;
+        answers[question.name as keyof T] = answer as T[keyof T];
       }
 
       if (question.type === "list" && question.choices) {
@@ -84,7 +88,7 @@ const readUserInputList = async (
 
           if (!isNaN(index) && question.choices[index]) {
             selected = question.choices[index];
-            answers[question.name] = selected;
+            answers[question.name as keyof T] = selected as T[keyof T];
           } else {
             console.log("Invalid selection. Please enter a valid number.");
           }
@@ -96,7 +100,7 @@ const readUserInputList = async (
   } finally {
     readline.close();
   }
-  return answers;
+  return answers as T;
 };
 
 export { readUserInputList, readSingleStringInput, readSingleListInput };
