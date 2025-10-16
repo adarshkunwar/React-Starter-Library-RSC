@@ -40,7 +40,7 @@ import tseslint from 'typescript-eslint'
 
 export default defineConfig(
   {
-    ignores: ['node_modules/', 'dist/', 'build/', 'docs', 'routeTree.gen.ts'],
+    ignores: ['node_modules/', 'dist/', 'build/', 'docs' ],
   },
   eslint.configs.recommended,
   tseslint.configs.recommended,
@@ -53,7 +53,7 @@ export default defineConfig(
     },
     settings: {
       react: {
-        version: 'detect', // 自动检测 React 版本
+        version: 'detect', 
       },
       'import-x/resolver-next': [
         createTypeScriptImportResolver({

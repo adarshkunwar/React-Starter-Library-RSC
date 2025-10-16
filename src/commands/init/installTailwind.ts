@@ -48,7 +48,7 @@ const fixViteConfig = async ({
 const installEslintConfig = async (projectAnswers: ProjectAnswers) => {
   try {
     await writeFile(
-      `${projectAnswers.name}/eslint.config.ts`,
+      `${projectAnswers.name}/eslint.config.js`,
       config.eslintConfig
     );
     await writeFile(`${projectAnswers.name}/.prettierrc`, config.prettierRC);
