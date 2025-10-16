@@ -7,6 +7,7 @@ import {
   readSingleListInput,
 } from "../../utils/helper/userInput.js";
 import { reactStarter } from "./react-starter.js";
+import { createConfig } from "./createConfig.js";
 import { Logger } from "../../utils/helper/logger.js";
 import type { ProjectAnswers } from "../../types/questionList.js";
 
@@ -26,6 +27,10 @@ const init = async () => {
     );
 
     await reactStarter({
+      projectAnswers: answers,
+    });
+
+    await createConfig({
       projectAnswers: answers,
     });
   } catch (error) {

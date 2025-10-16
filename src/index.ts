@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { argv } from "node:process";
 import { COMMANDS } from "./constant/commands.js";
 import { init } from "./commands/init/init.js";

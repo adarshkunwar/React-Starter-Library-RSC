@@ -14,19 +14,26 @@ const reactStarter = async ({
     process.exit(1);
   }
 
-  console.log(
-    "you have the projectAnswers installation method",
-    installation_method
-  );
+  const commands = {
+    npm: ["npm", ["create", "vite@latest", name, "--- --template", "react-ts"]],
+    yarn: ["yarn", ["create", "vite", name, "--- --template", "react-ts"]],
+    pnpm: ["pnpm", ["create", "vite", name, "--- --template", "react-ts"]],
+  } as const;
 
-  const child = spawn("npm", ["create", "vite@latest", name], {
+  const [cmd, args] = commands[installation_method] ?? [];
+  if (!cmd) throw new Error(`${installation_method} not supported`);
+
+  const child = spawn(cmd, args, {
     shell: true,
-    stdio: "inherit", // This passes through the interactive prompts
+    stdio: "inherit",
+    env: { ...process.env, CI: "true" },
   });
 
-  child.stdout?.on("data", (data) => {
-    console.log(data.toString());
-  });
+  await new Promise((resolve, reject) =>
+    child.on("close", (code) =>
+      code === 0 ? resolve(true) : reject(new Error(`${cmd} failed`))
+    )
+  );
 };
 
 export { reactStarter };
