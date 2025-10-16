@@ -5,11 +5,30 @@ import type { ProjectAnswers } from "../../types/questionList.js";
 import { Logger } from "../../utils/helper/logger.js";
 
 const installTailwindCSS = async (projectAnswers: ProjectAnswers) => {
-  await installPackage({
-    packageName: "tailwindcss @tailwindcss/vite",
-    isDev: true,
-    projectAnswers,
-  });
+  try {
+    await installPackage({
+      packageName: "tailwindcss @tailwindcss/vite",
+      isDev: true,
+      projectAnswers,
+    });
+  } catch (error) {
+    Logger.error("Failed to install Tailwind CSS");
+    throw error; // Re-throw to be caught by the caller
+  }
+};
+
+const installLinterAndFormatter = async (projectAnswers: ProjectAnswers) => {
+  try {
+    await installPackage({
+      packageName:
+        "eslint @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-prettier prettier",
+      isDev: true,
+      projectAnswers,
+    });
+  } catch (error) {
+    Logger.error("Failed to install linter and formatter packages");
+    throw error;
+  }
 };
 
 const fixViteConfig = async ({
@@ -19,11 +38,34 @@ const fixViteConfig = async ({
 }) => {
   try {
     await writeFile(`${projectAnswers.name}/vite.config.ts`, config.viteConfig);
-    Logger.success("Tailwind CSS config fixed successfully");
+    Logger.success("Vite config updated successfully");
   } catch (error) {
-    console.error("Something went wrong:", error);
-    process.exit(1);
+    Logger.error("Failed to update Vite config");
+    throw error;
   }
 };
 
-export { installTailwindCSS, fixViteConfig };
+const installEslintConfig = async (projectAnswers: ProjectAnswers) => {
+  try {
+    await writeFile(
+      `${projectAnswers.name}/eslint.config.ts`,
+      config.eslintConfig
+    );
+    await writeFile(`${projectAnswers.name}/.prettierrc`, config.prettierRC);
+    await writeFile(
+      `${projectAnswers.name}/.prettierignore`,
+      config.prettierIgnore
+    );
+    Logger.success("Config files created successfully");
+  } catch (error) {
+    Logger.error("Failed to create config files");
+    throw error;
+  }
+};
+
+export {
+  installTailwindCSS,
+  fixViteConfig,
+  installLinterAndFormatter,
+  installEslintConfig,
+};

@@ -1,32 +1,35 @@
 import { exec } from "node:child_process";
 import { promisify } from "node:util";
 import type { ProjectAnswers } from "../../types/questionList.js";
-import { Logger } from "../helper/logger.js";
 
 const execAsync = promisify(exec);
 
 const installPackage = async ({
   packageName,
-  projectAnswers,
   isDev = false,
+  projectAnswers,
 }: {
   packageName: string;
-  projectAnswers: ProjectAnswers;
   isDev?: boolean;
+  projectAnswers: ProjectAnswers;
 }) => {
   try {
-    await execAsync(
-      `${projectAnswers.installation_method} install ${
-        isDev ? "-D" : ""
-      } ${packageName}`,
-      {
-        cwd: projectAnswers.name,
-      }
-    );
-    Logger.success(`${packageName} installed successfully`);
+    const { installation_method, name } = projectAnswers;
+
+    const commands = {
+      npm: `npm install ${isDev ? "-D" : ""} ${packageName}`,
+      yarn: `yarn add ${isDev ? "-D" : ""} ${packageName}`,
+      pnpm: `pnpm add ${isDev ? "-D" : ""} ${packageName}`,
+    };
+
+    const command = commands[installation_method];
+
+    await execAsync(command, {
+      cwd: name,
+    });
   } catch (error) {
-    Logger.error("Something went wrong:", error);
-    process.exit(1);
+    console.error("Package installation failed:", error);
+    throw error; // Re-throw to propagate the error
   }
 };
 
