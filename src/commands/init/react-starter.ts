@@ -14,41 +14,20 @@ const reactStarter = async ({
     process.exit(1);
   }
 
-  switch (installation_method) {
-    case "npm":
-      const npmChild = spawn("npm", ["create", "vite@latest", name], {
-        shell: true,
-        stdio: "inherit", // This passes through the interactive prompts
-      });
+  const commands = {
+    npm: ["npm", ["create", "vite@latest", name, "--- --template", "react-ts"]],
+    yarn: ["yarn", ["create", "vite", name, "--- --template", "react-ts"]],
+    pnpm: ["pnpm", ["create", "vite", name, "--- --template", "react-ts"]],
+  } as const;
 
-      npmChild.stdout?.on("data", (data) => {
-        console.log(data.toString());
-      });
-      break;
-    case "yarn":
-      const yarnChild = spawn("yarn", ["create", "vite", name], {
-        shell: true,
-        stdio: "inherit", // This passes through the interactive prompts
-      });
-
-      yarnChild.stdout?.on("data", (data) => {
-        console.log(data.toString());
-      });
-      break;
-    case "pnpm":
-      const pnpmChild = spawn("pnpm", ["create", "vite", name], {
-        shell: true,
-        stdio: "inherit", // This passes through the interactive prompts
-      });
-
-      pnpmChild.stdout?.on("data", (data) => {
-        console.log(data.toString());
-      });
-      break;
-    default:
-      console.error(`${installation_method} is not supported`);
-      process.exit(1);
-  }
+  const [cmd, args] = commands[installation_method] ?? [];
+  if (!cmd) throw new Error(`${installation_method} not supported`);
+  const child = spawn(cmd, args, { shell: true, stdio: "inherit" });
+  await new Promise((resolve, reject) =>
+    child.on("close", (code) =>
+      code === 0 ? resolve(true) : reject(new Error(`${cmd} failed`))
+    )
+  );
 };
 
 export { reactStarter };
