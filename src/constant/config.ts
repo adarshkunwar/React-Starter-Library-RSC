@@ -10,6 +10,8 @@ export default defineConfig({
 })
     `,
 
+  indexCSS: `@import "tailwindcss";`,
+
   prettierIgnore: `
 dist*
 node_modules

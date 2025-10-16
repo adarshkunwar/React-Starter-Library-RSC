@@ -11,6 +11,8 @@ const installTailwindCSS = async (projectAnswers: ProjectAnswers) => {
       isDev: true,
       projectAnswers,
     });
+
+    await writeFile(`${projectAnswers.name}/src/index.css`, config.indexCSS);
   } catch (error) {
     Logger.error("Failed to install Tailwind CSS");
     throw error; // Re-throw to be caught by the caller
