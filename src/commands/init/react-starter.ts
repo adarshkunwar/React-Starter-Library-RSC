@@ -22,7 +22,13 @@ const reactStarter = async ({
 
   const [cmd, args] = commands[installation_method] ?? [];
   if (!cmd) throw new Error(`${installation_method} not supported`);
-  const child = spawn(cmd, args, { shell: true, stdio: "inherit" });
+
+  const child = spawn(cmd, args, {
+    shell: true,
+    stdio: "inherit",
+    env: { ...process.env, CI: "true" },
+  });
+
   await new Promise((resolve, reject) =>
     child.on("close", (code) =>
       code === 0 ? resolve(true) : reject(new Error(`${cmd} failed`))
