@@ -56,7 +56,7 @@ const reactStarter = async ({
     )
   );
 
-  await installTailwindCSS();
+  await installTailwindCSS(projectAnswers);
   await fixViteConfig({ projectAnswers });
 };
 

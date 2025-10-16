@@ -21,12 +21,6 @@ export const questionsList: Question<ProjectAnswers>[] = [
   },
   {
     type: "list",
-    name: "styling",
-    message: "Choose a styling library",
-    choices: [...stylingLibraryList],
-  },
-  {
-    type: "list",
     name: "project_structure",
     message: "Choose a project structure",
     choices: [...projectStructureList],
