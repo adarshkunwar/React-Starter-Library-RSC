@@ -21,7 +21,7 @@ const installLinterAndFormatter = async (projectAnswers: ProjectAnswers) => {
   try {
     await installPackage({
       packageName:
-        "eslint @eslint/js eslint-plugin-react-hooks eslint-plugin-react-refresh eslint-plugin-prettier prettier",
+        "@eslint/js eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-prettier eslint-config-prettier eslint-import-resolver-typescript eslint-plugin-import-x",
       isDev: true,
       projectAnswers,
     });
