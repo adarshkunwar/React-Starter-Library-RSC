@@ -29,7 +29,10 @@ export const projectStartup = async ({
       Logger.success(`${folder} folder created successfully`);
     }
 
-    await writeFile(`${projectAnswers.name}/.env`, config.envConfig);
+    await writeFile(
+      `${projectAnswers.name}/.env`,
+      config({ projectAnswers }).envConfig
+    );
 
     Logger.success("Project startup completed successfully ----");
   } catch (error) {

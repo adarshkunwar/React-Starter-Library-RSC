@@ -1,9 +1,12 @@
 import {
-  stylingLibraryList,
-  installationMethodList,
-  projectStructureList,
-} from "../constant/questionsList.js";
+  STYLING_LIBRARY_OPTIONS,
+  PROJECT_STRUCTURE_OPTIONS,
+  INSTALLATION_METHOD_OPTIONS,
+} from "../constant/commands.js";
 
+export type StylingLibrary = (typeof STYLING_LIBRARY_OPTIONS)[number];
+export type ProjectStructure = (typeof PROJECT_STRUCTURE_OPTIONS)[number];
+export type InstallationMethod = (typeof INSTALLATION_METHOD_OPTIONS)[number];
 export type Answers = Record<string, string>;
 
 export interface Question<T> {
@@ -12,10 +15,6 @@ export interface Question<T> {
   message: string;
   choices?: readonly string[];
 }
-
-export type StylingLibrary = (typeof stylingLibraryList)[number];
-export type ProjectStructure = (typeof projectStructureList)[number];
-export type InstallationMethod = (typeof installationMethodList)[number];
 
 export interface ProjectAnswers {
   name: string;

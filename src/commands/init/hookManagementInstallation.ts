@@ -31,30 +31,33 @@ export const fixAxiosAndHookManagementPackages = async ({
   try {
     await writeFile(
       `${projectAnswers.name}/src/utils/encryptedLocalStorage.ts`,
-      config.encryptedLocalStorage
+      config({ projectAnswers }).encryptedLocalStorage
     );
 
     await writeFile(
       `${projectAnswers.name}/src/config/store/authSlice.ts`,
-      config.authSlice
+      config({ projectAnswers }).tokenSlice
     );
 
     await writeFile(
       `${projectAnswers.name}/src/config/store.ts`,
-      config.reactStoreConfig
+      config({ projectAnswers }).reactStoreConfig
     );
 
     await writeFile(
       `${projectAnswers.name}/src/config/axios.ts`,
-      config.axiosConfig
+      config({ projectAnswers }).axiosConfig
     );
 
     await writeFile(
       `${projectAnswers.name}/src/types/declaration.d.ts`,
-      config.declarationdts
+      config({ projectAnswers }).declarationdts
     );
 
-    await writeFile(`${projectAnswers.name}/src/main.tsx`, config.mainPage);
+    await writeFile(
+      `${projectAnswers.name}/src/main.tsx`,
+      config({ projectAnswers }).mainPage
+    );
 
     Logger.success("Axios and hook management packages installed successfully");
   } catch (error) {

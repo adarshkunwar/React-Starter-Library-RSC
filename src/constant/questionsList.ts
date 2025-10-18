@@ -1,16 +1,10 @@
-import { type ProjectAnswers, type Question } from "../types/questionList.js";
-import { createYNQuestion } from "../utils/helper/createQuestion.js";
-
-// Fix: naming consistency — use PascalCase for exports and ensure they are const arrays
-export const stylingLibraryList = [
-  "tailwindcss",
-  "css-modules",
-  "styled-components",
-] as const;
-
-export const projectStructureList = ["feature-folder", "monorepo"] as const;
-
-export const installationMethodList = ["npm", "yarn", "pnpm"] as const;
+import {
+  type Answers,
+  type ProjectAnswers,
+  type Question,
+} from "../types/questionList.js";
+import { INSTALLATION_METHOD_OPTIONS } from "./commands.js";
+import { PROJECT_STRUCTURE_OPTIONS } from "./commands.js";
 
 // Use the imported Question interface for consistent typing
 export const questionsList: Question<ProjectAnswers>[] = [
@@ -23,18 +17,19 @@ export const questionsList: Question<ProjectAnswers>[] = [
     type: "list",
     name: "project_structure",
     message: "Choose a project structure",
-    choices: [...projectStructureList],
+    choices: [...PROJECT_STRUCTURE_OPTIONS],
   },
   {
     type: "list",
     name: "installation_method",
     message: "Choose an installation method",
-    choices: [...installationMethodList],
+    choices: [...INSTALLATION_METHOD_OPTIONS],
   },
 ];
 
-export const confirmQuestion = createYNQuestion<{ confirm: string }>({
-  question: "Are you sure you want to continue?",
-  choice: ["Yes", "No"],
+export const confirmQuestion: Question<Answers> = {
+  type: "list",
   name: "confirm",
-});
+  message: "Are you sure you want to continue?",
+  choices: ["Yes", "No"],
+};

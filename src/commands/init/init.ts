@@ -18,22 +18,16 @@ import {
 
 const init = async () => {
   try {
+    // read the input from the user
     const answers = await readUserInputList<ProjectAnswers>(questionsList);
-
     const confirm = await readSingleListInput(confirmQuestion);
     if (confirm === "No") {
       console.log("Project creation cancelled.");
       process.exit(1);
     }
+    Logger.success("Project creation confirmed. Proceeding with setup...");
 
-    Logger.success(
-      "Project creation confirmed. Proceeding with setup...",
-      answers
-    );
-
-    await reactStarter({
-      projectAnswers: answers,
-    });
+    await reactStarter({ projectAnswers: answers });
 
     await createConfig({
       projectAnswers: answers,
