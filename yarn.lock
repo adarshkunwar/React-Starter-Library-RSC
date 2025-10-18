@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@adarsh.kunwar/rsc@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@adarsh.kunwar/rsc/-/rsc-1.1.6.tgz#9a2790d5a4a2367d73542d9cab9c37ddfa1ebf13"
+  integrity sha512-DwL4QUafef3kz5ynA+G4JLPLS09Z7/yxhpY3MtUlaWBEuPd7hyru9UfSH2IqaNj9iYUjKPvs/4222H32E32iXQ==
+  dependencies:
+    jsonc-parser "^3.3.1"
+
 "@cspotcode/source-map-support@^0.8.0":
   version "0.8.1"
   resolved "https://registry.yarnpkg.com/@cspotcode/source-map-support/-/source-map-support-0.8.1.tgz#00629c35a688e05a88b1cda684fb9d5e73f000a1"
