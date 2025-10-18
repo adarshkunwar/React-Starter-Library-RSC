@@ -2,6 +2,7 @@ import { spawn } from "node:child_process";
 import { hasCommand } from "../../utils/commands/hasCommand.js";
 import type { ProjectAnswers } from "../../types/questionList.js";
 import { Logger } from "../../utils/helper/logger.js";
+import { existsSync, renameSync } from "node:fs";
 import {
   fixViteConfig,
   installEslintConfig,
@@ -43,6 +44,11 @@ const reactStarter = async ({
 
     Logger.success("Project scaffolded successfully");
 
+    const gitignorePath = `${projectAnswers.name}/_gitignore`;
+    if (existsSync(gitignorePath)) {
+      renameSync(gitignorePath, `${projectAnswers.name}/.gitignore`);
+    }
+
     // Now install dependencies with the user's preferred package manager
     Logger.info(`📦 Installing dependencies with ${installation_method}...`);
     const installCommands = {
@@ -68,7 +74,7 @@ const reactStarter = async ({
 
     // Install Tailwind CSS
     Logger.info("🎨 Installing Tailwind CSS...");
-    await installTailwindCSS(projectAnswers);
+    await installTailwindCSS({ projectAnswers });
     Logger.success("Tailwind CSS installed successfully");
 
     // Fix Vite config
@@ -77,12 +83,12 @@ const reactStarter = async ({
 
     // Install linter and formatter
     Logger.info("🔧 Installing ESLint and Prettier...");
-    await installLinterAndFormatter(projectAnswers);
+    await installLinterAndFormatter({ projectAnswers });
     Logger.success("Linter and formatter installed successfully");
 
     // Install ESLint config
     Logger.info("📝 Creating config files...");
-    await installEslintConfig(projectAnswers);
+    await installEslintConfig({ projectAnswers });
 
     Logger.success(`\n✨ Project "${name}" created successfully!`);
     Logger.info(`\nNext steps:`);

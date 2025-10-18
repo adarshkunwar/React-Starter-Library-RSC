@@ -4,7 +4,11 @@ import { config } from "../../constant/config.js";
 import type { ProjectAnswers } from "../../types/questionList.js";
 import { Logger } from "../../utils/helper/logger.js";
 
-const installTailwindCSS = async (projectAnswers: ProjectAnswers) => {
+const installTailwindCSS = async ({
+  projectAnswers,
+}: {
+  projectAnswers: ProjectAnswers;
+}) => {
   try {
     await installPackage({
       packageName: "tailwindcss @tailwindcss/vite",
@@ -19,7 +23,11 @@ const installTailwindCSS = async (projectAnswers: ProjectAnswers) => {
   }
 };
 
-const installLinterAndFormatter = async (projectAnswers: ProjectAnswers) => {
+const installLinterAndFormatter = async ({
+  projectAnswers,
+}: {
+  projectAnswers: ProjectAnswers;
+}) => {
   try {
     await installPackage({
       packageName:
@@ -47,7 +55,11 @@ const fixViteConfig = async ({
   }
 };
 
-const installEslintConfig = async (projectAnswers: ProjectAnswers) => {
+const installEslintConfig = async ({
+  projectAnswers,
+}: {
+  projectAnswers: ProjectAnswers;
+}) => {
   try {
     await writeFile(
       `${projectAnswers.name}/eslint.config.js`,
