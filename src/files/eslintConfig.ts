@@ -1,4 +1,4 @@
-const eslintConfig = `
+export const eslintConfig = `
 // @ts-check
 
 import eslint from '@eslint/js'
