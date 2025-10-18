@@ -16,7 +16,7 @@ export const installHookManagementPackages = async ({
       isDev: true,
       projectAnswers,
     });
-    Logger.success("Hook management packages installed successfully ----");
+    Logger.success("Hook management packages installed successfully");
   } catch (error) {
     Logger.error("Failed to install linter and formatter packages");
     throw error;

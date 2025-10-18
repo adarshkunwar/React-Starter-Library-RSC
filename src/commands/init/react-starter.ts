@@ -125,6 +125,23 @@ const setupEslintConfig = async ({
   Logger.success("ESLint config created successfully");
 };
 
+export const createConfig = async ({
+  projectAnswers,
+}: {
+  projectAnswers: ProjectAnswers;
+}): Promise<void> => {
+  try {
+    const configPath = `${projectAnswers.name}/rsc.config.json`;
+    const configContent = JSON.stringify(projectAnswers, null, 2);
+
+    await writeFile(configPath, configContent, "utf8");
+    Logger.success("Config created successfully");
+  } catch (error) {
+    Logger.error("Failed to create config", error);
+    throw error;
+  }
+};
+
 const reactStarter = async ({
   projectAnswers,
 }: {
@@ -146,6 +163,8 @@ const reactStarter = async ({
     await setupViteConfig({ projectAnswers });
     await setupLinterAndFormatter({ projectAnswers });
     await setupEslintConfig({ projectAnswers });
+
+    await createConfig({ projectAnswers });
 
     Logger.success(`\n✨ Project "${name}" created successfully!`);
   } catch (error) {
