@@ -19,7 +19,6 @@ export type InstallationMethod = (typeof installationMethodList)[number];
 
 export interface ProjectAnswers {
   name: string;
-  styling: StylingLibrary;
   project_structure: ProjectStructure;
   installation_method: InstallationMethod;
 }

@@ -42,5 +42,6 @@
     "skipLibCheck": true,
     "outDir": "./dist",
 
-  }
+  },
+    "exclude" : ["test", "te", "dist", "node_modules", "docs", "build"]
 }
