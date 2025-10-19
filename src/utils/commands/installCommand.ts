@@ -1,10 +1,9 @@
-import { exec } from "node:child_process";
-import { promisify } from "node:util";
+import type { TPackage } from "../../types/packaged.js";
 import type { ProjectAnswers } from "../../types/questionList.js";
+import { Logger } from "../helper/logger.js";
+import { runCommand } from "../helper/runCommand.js";
 
-const execAsync = promisify(exec);
-
-const installPackage = async ({
+export const installPackage = async ({
   packageName,
   isDev = false,
   projectAnswers,
@@ -13,24 +12,42 @@ const installPackage = async ({
   isDev?: boolean;
   projectAnswers: ProjectAnswers;
 }) => {
+  const { installation_method, name } = projectAnswers;
+  const command = installation_method;
+  const args = [
+    installation_method === "npm" ? "install" : "add",
+    packageName,
+    ...(isDev ? ["-D"] : []),
+  ];
+
   try {
-    const { installation_method, name } = projectAnswers;
-
-    const commands = {
-      npm: `npm install ${isDev ? "-D" : ""} ${packageName}`,
-      yarn: `yarn add ${isDev ? "-D" : ""} ${packageName}`,
-      pnpm: `pnpm add ${isDev ? "-D" : ""} ${packageName}`,
-    };
-
-    const command = commands[installation_method];
-
-    await execAsync(command, {
+    await runCommand(command, args, {
       cwd: name,
+      shell: true,
+      stdio: "inherit",
     });
   } catch (error) {
-    console.error("Package installation failed:", error);
-    throw error; // Re-throw to propagate the error
+    console.error(`Failed to install ${packageName}:`, error);
+    throw error;
   }
 };
 
-export { installPackage };
+export const installAndLog = async ({
+  pkg,
+  projectAnswers,
+}: {
+  pkg: TPackage;
+  projectAnswers: ProjectAnswers;
+}) => {
+  try {
+    await installPackage({
+      packageName: pkg.packages.join(" "),
+      isDev: pkg.isDevTool,
+      projectAnswers,
+    });
+    Logger.success(`✅ ${pkg.description} installed successfully`);
+  } catch (error) {
+    Logger.error(`❌ Failed to install ${pkg.description}`, error);
+    throw error;
+  }
+};

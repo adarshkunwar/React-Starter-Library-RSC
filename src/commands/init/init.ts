@@ -9,11 +9,8 @@ import {
 import { reactStarter } from "./react-starter.js";
 import { Logger } from "../../utils/helper/logger.js";
 import type { ProjectAnswers } from "../../types/questionList.js";
-import { editConfigPath, projectStartup } from "./projectStructure.js";
-import {
-  fixAxiosAndHookManagementPackages,
-  installHookManagementPackages,
-} from "./hookManagementInstallation.js";
+import { projectStartup } from "./projectStructure.js";
+import { CreateConfig, InstallPackages } from "./packages.js";
 
 const init = async () => {
   try {
@@ -29,10 +26,9 @@ const init = async () => {
     await reactStarter({ projectAnswers: answers });
 
     await projectStartup({ projectAnswers: answers });
-    await editConfigPath({ projectAnswers: answers });
 
-    await installHookManagementPackages({ projectAnswers: answers });
-    await fixAxiosAndHookManagementPackages({ projectAnswers: answers });
+    await CreateConfig({ projectAnswers: answers });
+    await InstallPackages({ projectAnswers: answers });
   } catch (error) {
     console.error("Something went wrong:", error);
     process.exit(1);
