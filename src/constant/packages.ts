@@ -85,6 +85,27 @@ const PACKAGES: Record<string, TPackage> = {
     isDevTool: false,
     description: "React Router Dom",
   },
+
+  reactIcons: {
+    name: "reactIcons",
+    packages: ["react-icons"],
+    isDevTool: false,
+    description: "React Icons",
+  },
+
+  tanstackReactTable: {
+    name: "tanstackReactTable",
+    packages: ["@tanstack/react-table"],
+    isDevTool: false,
+    description: "Tanstack React Table",
+  },
+
+  reactHookForm: {
+    name: "reactHookForm",
+    packages: ["react-hook-form"],
+    isDevTool: false,
+    description: "React Hook Form",
+  },
 };
 
 export { PACKAGES };
