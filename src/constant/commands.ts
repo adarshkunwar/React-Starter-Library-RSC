@@ -23,6 +23,6 @@ export const STYLING_LIBRARY_OPTIONS = [
 export const INSTALL_COMMANDS: Record<InstallationMethod, [string, string[]]> =
   {
     npm: ["npm", ["install"]],
-    yarn: ["yarn", ["add"]],
-    pnpm: ["pnpm", ["add"]],
+    yarn: ["yarn", ["install"]],
+    pnpm: ["pnpm", ["install"]],
   };

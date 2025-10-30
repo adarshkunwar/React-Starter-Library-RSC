@@ -36,10 +36,11 @@ export const tsConfigApp = `
       "@utils/*": [ "./src/utils/*" ],
       "@hooks/*": [ "./src/hooks/*" ],
       "@services/*": [ "./src/services/*" ],
-      "@types/*": [ "./src/types/*" ],
+      "@type/*": [ "./src/types/*" ],
       "@pages/*": [ "./src/pages/*" ],
       "@features/*": [ "./src/features/*" ],
-      "@config/*": [ "./src/config/*" ]
+      "@config/*": [ "./src/config/*" ],
+      "@lib/*": [ "./src/lib/*" ]
     }
   },
   "include": [ "src" ]

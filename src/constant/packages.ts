@@ -8,6 +8,13 @@ const PACKAGES: Record<string, TPackage> = {
     description: "Tailwind CSS",
   },
 
+  tailwindMergeAndClsx: {
+    name: "tailwindMergeAndClsx",
+    packages: ["tailwind-merge", "clsx"],
+    isDevTool: false,
+    description: "Tailwind Merge and Clsx",
+  },
+
   linterAndFormatter: {
     name: "linterAndFormatter",
     packages: [
@@ -46,16 +53,9 @@ const PACKAGES: Record<string, TPackage> = {
 
   reactRedux: {
     name: "reactRedux",
-    packages: ["@reduxjs/toolkit react-redux"],
+    packages: ["@reduxjs/toolkit", "react-redux"],
     isDevTool: false,
     description: "React Redux",
-  },
-
-  cryptoJsAndRouterDom: {
-    name: "cryptoJsAndRouterDom",
-    packages: ["crypto-js react-router-dom"],
-    isDevTool: false,
-    description: "Crypto Js and React Router Dom",
   },
 
   prettier: {
@@ -70,6 +70,12 @@ const PACKAGES: Record<string, TPackage> = {
     packages: ["typescript"],
     isDevTool: false,
     description: "Typescript",
+  },
+  reactHotToast: {
+    name: "sonner",
+    packages: ["sonner"],
+    isDevTool: false,
+    description: "React Hot Toast",
   },
 
   cryptoJs: {

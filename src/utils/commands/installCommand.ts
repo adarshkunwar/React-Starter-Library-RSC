@@ -4,11 +4,11 @@ import { Logger } from "../helper/logger.js";
 import { runCommand } from "../helper/runCommand.js";
 
 export const installPackage = async ({
-  packageName,
+  packageNames,
   isDev = false,
   projectAnswers,
 }: {
-  packageName: string;
+  packageNames: string[];
   isDev?: boolean;
   projectAnswers: ProjectAnswers;
 }) => {
@@ -16,7 +16,7 @@ export const installPackage = async ({
   const command = installation_method;
   const args = [
     installation_method === "npm" ? "install" : "add",
-    packageName,
+    ...packageNames,
     ...(isDev ? ["-D"] : []),
   ];
 
@@ -27,7 +27,7 @@ export const installPackage = async ({
       stdio: "inherit",
     });
   } catch (error) {
-    console.error(`Failed to install ${packageName}:`, error);
+    console.error(`Failed to install ${packageNames.join(", ")}:`, error);
     throw error;
   }
 };
@@ -41,7 +41,7 @@ export const installAndLog = async ({
 }) => {
   try {
     await installPackage({
-      packageName: pkg.packages.join(" "),
+      packageNames: pkg.packages,
       isDev: pkg.isDevTool,
       projectAnswers,
     });

@@ -1,6 +1,6 @@
-export const encryptedLocalStorage = `
+export const EncryptedLocalStorage = `
 import CryptoJS from 'crypto-js';
-export const encryptedLocalStorage = {
+export const EncryptedLocalStorage = {
   getItem(key: string): string | null {
     try {
       const encrypted = localStorage.getItem(key);

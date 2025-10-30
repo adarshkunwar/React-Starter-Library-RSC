@@ -25,7 +25,10 @@ const CreateConfig = async ({
         await mkdir(dir, { recursive: true });
       }
 
-      await writeFile(filePath, content.value);
+      await writeFile(
+        filePath,
+        typeof content.value === "function" ? content.value() : content.value
+      );
       Logger.success(`📁 ${content.description} created successfully`);
     }
 

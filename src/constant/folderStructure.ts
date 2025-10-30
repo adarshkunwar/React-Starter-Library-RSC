@@ -6,7 +6,12 @@ const featureFolderStructure = [
   "hooks",
   "types",
 
+  "assets/icons",
+  "assets/images",
+  "assets/fonts",
+
   "components/ui",
+  "components/module",
   "components/layout",
 
   "config/store",
@@ -15,20 +20,19 @@ const featureFolderStructure = [
   "features/home/components",
   "features/home/hooks",
   "features/home/store",
-
-  "features/dashboard",
-  "features/dashboard/components",
-  "features/dashboard/hooks",
-  "features/dashboard/store",
 ];
 
 const classicFolderStructure = [
-  "components",
   "config",
   "utils",
   "hooks",
   "types",
   "pages",
+
+  "components",
+  "components/ui",
+  "components/layout",
+  "components/module",
 
   "pages/home",
   "pages/dashboard",

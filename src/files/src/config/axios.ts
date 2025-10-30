@@ -1,6 +1,6 @@
-export const axiosConfig = `
- import axios, {type AxiosError } from 'axios'
-import {store} from '@/config/store'
+export const axios = `
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from 'axios'
+import { store, type RootState } from '@config/Store'
 
 export const AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_APP_API_URL || '',
@@ -12,9 +12,9 @@ export const AxiosInstance = axios.create({
 
 // Request interceptor
 AxiosInstance.interceptors.request.use(
-  (config: any) => {
-    const state = store.getState().auth
-    const {accessToken, guestToken} = state
+  (config: InternalAxiosRequestConfig) => {
+    const state = store.getState() as RootState
+    const { accessToken, guestToken } = state.auth
 
     if (accessToken) {
       config.headers.Authorization = \`Bearer \${accessToken}\`
@@ -25,6 +25,7 @@ AxiosInstance.interceptors.request.use(
   },
   (error: AxiosError) => {
     return Promise.reject(error)
-  }
+  },
 )
+
 `;

@@ -28,6 +28,7 @@ const init = async () => {
     await projectStartup({ projectAnswers: answers });
 
     await CreateConfig({ projectAnswers: answers });
+
     await InstallPackages({ projectAnswers: answers });
   } catch (error) {
     console.error("Something went wrong:", error);

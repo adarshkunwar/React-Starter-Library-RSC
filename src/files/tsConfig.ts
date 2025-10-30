@@ -1,17 +1,17 @@
 export const tsConfig = `
 {
-  files: [],
-  references: [
+  "files": [],
+  "references": [
     {
-      path: "./tsconfig.app.json",
+      "path": "./tsconfig.app.json",
     },
     {
-      path: "./tsconfig.node.json",
+      "path": "./tsconfig.node.json",
     },
   ],
-  compilerOptions: {
-    baseUrl: ".",
-    paths: {
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
       "@ui/*": ["./src/components/ui/*"],
@@ -20,10 +20,11 @@ export const tsConfig = `
       "@utils/*": ["./src/utils/*"],
       "@hooks/*": ["./src/hooks/*"],
       "@services/*": ["./src/services/*"],
-      "@types/*": ["./src/types/*"],
+      "@type/*": ["./src/types/*"],
       "@pages/*": ["./src/pages/*"],
       "@features/*": ["./src/features/*"],
       "@config/*": ["./src/config/*"],
+      "@lib/*": ["./src/lib/*"],
     },
   },
 }

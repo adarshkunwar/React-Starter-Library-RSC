@@ -1,4 +1,3 @@
-import { spawn } from "node:child_process";
 import { hasCommand } from "../../utils/commands/hasCommand.js";
 import type {
   InstallationMethod,
@@ -20,7 +19,7 @@ const scaffoldProject = async (projectName: string): Promise<void> => {
       "vitejs/vite/packages/create-vite/template-react-ts",
       projectName,
     ],
-    { shell: true, stdio: "inherit" }
+    { shell: true, stdio: "inherit" },
   );
   Logger.success("Project scaffolded successfully");
 };
@@ -39,7 +38,7 @@ const fixGitignore = async (projectName: string): Promise<void> => {
 
 const installDependencies = async (
   projectName: string,
-  installMethod: InstallationMethod
+  installMethod: InstallationMethod,
 ): Promise<void> => {
   Logger.info(`📦 Installing dependencies with ${installMethod}...`);
 
